@@ -70,7 +70,7 @@ dev.off()
 # 그림 4a–4c를 보고 정한다. 이유는 notes.md "Day 2 판단"에 적는다.
 
 # ▶ 직접 정할 값
-n_pcs <- NA   # 다음 단계(군집화, UMAP)에 쓸 PC 개수
+n_pcs <- 9   # 다음 단계(군집화, UMAP)에 쓸 PC 개수
 
 stopifnot("n_pcs를 먼저 정하세요" = !is.na(n_pcs))
 pbmc@misc$n_pcs <- n_pcs
