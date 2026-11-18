@@ -22,17 +22,22 @@
 
 ### 판단 1. 미토콘드리아 비율 5% 미만만 남겼다
 
-세포막이 터진 세포는 세포질의 mRNA가 빠져나가고 미토콘드리아 막 안의 RNA만 남아서, 전체 RNA(UMI)는 적고 미토콘드리아 비율은 높다. [그림 2](results/figures/fig2_qc_scatter.png) 오른쪽에서 비율이 높은 세포는 실제로 UMI가 적은 쪽에 몰려 있었다. PBMC는 쉬고 있는 작은 면역세포라 원래 비율이 낮다(중앙값 2.03%, 99%가 5.88% 이하). 10%로 바꾸면 탈락이 57개에서 6개로 줄어 5–10% 사이에 51개가 있었고, 전체의 2%라 잃는 것이 적고 남기면 이상한 군집을 만들 위험이 있어 5%를 골랐다. [리보솜 비율 그림](results/figures/fig2b_ribo.png)에서도 미토콘드리아 비율이 아주 높은 세포는 리보솜 유전자 비율이 낮아(세포질 mRNA가 빠져나간 흔적) 같은 결론을 다른 지표로 확인했다.
+- 미토콘드리아 비율 중앙값 2.03%, 99%가 5.88% 이하. 비율이 높은 세포는 UMI가 적은 쪽에 몰려 있었다(세포막이 터진 세포의 패턴, [그림 2](results/figures/fig2_qc_scatter.png) 오른쪽).
+- 10%로 바꾸면 탈락이 57개 → 6개. 5–10% 사이 51개(2%)는 잃는 것이 적고 남기면 이상한 군집을 만들 위험이 있어 5%로 정했다.
+- 다른 지표로 확인: 미토콘드리아 비율이 아주 높은 세포는 리보솜 유전자 비율이 낮았다([그림 2b](results/figures/fig2b_ribo.png)).
 
 ### 판단 2. 유전자 수 상한 2,500 + doublet 탐지 도구로 doublet 127개를 추가로 뺐다
 
-유전자 수 상한은 2,500과 3,000 사이에서 고민했다. [그림 2](results/figures/fig2_qc_scatter.png) 왼쪽에서 3,000 쪽 틈이 더 넓어 보였지만, 꼬리 구간은 큰 세포가 원래 드물어 정상 세포끼리도 점 사이가 벌어지므로 틈만으로는 경계를 정할 수 없었다. 상한을 2,000–3,000으로 옮겨도 남는 세포는 3개씩만 바뀌었다([표 2](results/tables/table2_qc_sensitivity.csv)).
-
-그래서 발현 패턴으로 doublet을 찾는 scDblFinder로 확인했다. 2,500 이상인 5개는 모두 doublet이었고, 2,700 근처의 세포 3개도 큰 정상 세포가 아니라 doublet이어서 2,500으로 정했다. scDblFinder는 2,700개 중 133개(4.9%)를 doublet으로 판정했는데, 그중 128개(96%)는 유전자 수 기준에 걸리지 않았다. 작은 세포 두 개가 합쳐지면 큰 세포 하나와 크기가 비슷해져 [정상 세포의 띠 안](results/figures/fig2c_doublets.png)에 섞이기 때문이다. doublet은 T세포와 단핵구 마커가 한 세포에서 함께 잡힌 비율이 2.2배(24% → 52%)였고 미토콘드리아 비율은 정상이었다. 기존 QC로 빠지지 않은 127개를 추가로 뺐다.
+- 상한을 2,000 / 2,500 / 3,000으로 옮기면 남는 세포 2,635 / 2,638 / 2,641([표 2](results/tables/table2_qc_sensitivity.csv)). [그림 2](results/figures/fig2_qc_scatter.png) 왼쪽에서 3,000 쪽 틈이 더 넓어 보였지만, 꼬리 구간이라 틈만으로는 정할 수 없었다.
+- scDblFinder로 확인: 2,500 이상 5개가 모두 doublet(2,700 근처 3개 포함) → 2,500으로 정했다.
+- scDblFinder 판정 doublet 133개(4.9%) 중 128개(96%)는 유전자 수 기준에 걸리지 않았다. 작은 세포 두 개가 합쳐지면 정상 세포 크기 범위에 들어가기 때문이다([그림 2c](results/figures/fig2c_doublets.png)).
+- doublet은 T세포·단핵구 마커 동시 검출 비율 2.2배(24% → 52%), 미토콘드리아 비율은 정상. 기존 QC로 빠지지 않은 127개를 추가로 뺐다.
 
 ### 판단 3. PC는 9개를 썼다
 
-[Elbow plot](results/figures/fig4a_elbow.png)은 7 근처에서 꺾였다(설명 분산 PC7 1.71%, PC8 1.48%, PC9 1.40%, PC10 1.39%). 하지만 [PC별 히트맵](results/figures/fig4c_pc_heatmaps.png)의 양쪽 끝 유전자 15개를 보면 PC8에 수지상세포 마커(CD1C, FCER1A), PC9에 인터페론 반응 유전자(IFIT2, MX1, IRF7)가 있었고 PC10부터 무늬가 흐려졌다. 수지상세포는 전체의 1%뿐이라 다른 세포와 확실히 달라도 전체 분산 중 작은 몫밖에 설명하지 못해 elbow에서 묻힌다. 그래서 elbow의 꺾이는 지점은 출발점으로만 보고 PC를 9개로 정했다. 수지상세포는 이후 군집화에서 따로 잡혔다.
+- [Elbow plot](results/figures/fig4a_elbow.png): 7 근처에서 꺾임(설명 분산 PC7 1.71%, PC8 1.48%, PC9 1.40%, PC10 1.39%).
+- [PC별 히트맵](results/figures/fig4c_pc_heatmaps.png): PC8 = 수지상세포 마커(CD1C, FCER1A), PC9 = 인터페론 반응(IFIT2, MX1, IRF7), PC10부터 흐려짐.
+- 수지상세포는 1%뿐이라 분산이 작아 elbow에서 묻힌다. 9개로 정했고, 수지상세포는 군집화에서 따로 잡혔다.
 
 ### 판단 4. resolution은 0.5를 골랐다
 
@@ -52,7 +57,8 @@
 
 ### 판단 5. 데이터가 찾은 마커와 알려진 마커를 교차 확인해 이름을 붙였다
 
-군집마다 나머지 세포와 비교해 마커를 찾고(`FindAllMarkers`, [표 6](results/tables/table6_top_markers.csv), [히트맵](results/figures/fig7a_marker_heatmap.png)), 알려진 PBMC 마커의 [dot plot](results/figures/fig7b_known_markers_dot.png)과 함께 봤다. 마커 하나만 보면 틀리기 쉬웠다. 처음에는 S100A4가 진한 1번 군집을 Memory CD4 T로, NKG7이 진한 4번 군집을 NK로 봤지만, S100A4는 단핵구와 NK에서도 켜지고 NKG7은 세포를 죽이는 CD8 T에서도 켜진다. CD3E로 T세포인지 먼저 보고, 그 안에서 CD8A, CCR7(Naive) vs S100A4(Memory)를 보는 순서로 다시 읽어 고쳤다.
+- 데이터 마커(`FindAllMarkers`, [표 6](results/tables/table6_top_markers.csv), [히트맵](results/figures/fig7a_marker_heatmap.png))와 알려진 마커([dot plot](results/figures/fig7b_known_markers_dot.png))가 같은 세포를 가리킬 때 이름을 붙였다.
+- 처음에는 1번을 Memory CD4 T(S100A4), 4번을 NK(NKG7)로 잘못 봤다. S100A4는 단핵구·NK에서도, NKG7은 CD8 T에서도 켜진다. CD3E(T세포인가) → CD8A → CCR7 vs S100A4 순서로 다시 읽어 고쳤다.
 
 | 군집 | 이름 | 결정적인 마커 | 세포 수 (비율) |
 |---|---|---|---|
