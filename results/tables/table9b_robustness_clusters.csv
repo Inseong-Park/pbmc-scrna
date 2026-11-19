@@ -1,0 +1,57 @@
+setting,cluster,label,순도,세포수,기준에_없던_세포,doublet
+base,0,Naive CD4 T,1,713,0,0
+base,1,CD14+ Mono,1,468,0,0
+base,2,Memory CD4 T,1,368,0,0
+base,3,B,1,332,0,0
+base,4,CD8 T,1,300,0,0
+base,5,FCGR3A+ Mono,1,154,0,0
+base,6,NK,1,137,0,0
+base,7,DC,1,25,0,0
+base,8,Platelet,1,14,0,0
+mt10,0,Naive CD4 T,0.946,757,17,0
+mt10,1,CD14+ Mono,0.998,472,11,0
+mt10,2,Memory CD4 T,0.947,359,1,0
+mt10,3,B,1,337,5,0
+mt10,4,CD8 T,1,298,16,0
+mt10,5,FCGR3A+ Mono,0.951,162,0,0
+mt10,6,NK,0.993,138,0,0
+mt10,7,DC,1,24,0,0
+mt10,8,Platelet,1,14,0,0
+dbl_keep,0,Naive CD4 T,0.909,734,6,6
+dbl_keep,1,CD14+ Mono,0.996,480,14,14
+dbl_keep,2,Memory CD4 T,0.839,450,53,53
+dbl_keep,3,B,1,344,12,12
+dbl_keep,4,CD8 T,0.988,267,18,18
+dbl_keep,5,FCGR3A+ Mono,0.981,162,7,7
+dbl_keep,6,NK,0.951,155,11,11
+dbl_keep,7,DC,0.962,32,6,6
+dbl_keep,8,Platelet,1,14,0,0
+pc7,0,Naive CD4 T,0.946,552,0,0
+pc7,1,CD14+ Mono,0.941,490,0,0
+pc7,2,Memory CD4 T,0.782,427,0,0
+pc7,3,B,1,332,0,0
+pc7,4,CD8 T,0.984,250,0,0
+pc7,5,FCGR3A+ Mono,0.956,158,0,0
+pc7,6,Naive CD4 T,0.748,151,0,0
+pc7,7,NK,0.986,138,0,0
+pc7,8,Platelet,1,13,0,0
+pc10,0,Naive CD4 T,0.972,684,0,0
+pc10,1,CD14+ Mono,0.996,450,0,0
+pc10,2,Memory CD4 T,0.881,387,0,0
+pc10,3,B,1,332,0,0
+pc10,4,CD8 T,0.958,311,0,0
+pc10,5,FCGR3A+ Mono,0.884,173,0,0
+pc10,6,NK,1,136,0,0
+pc10,7,DC,1,25,0,0
+pc10,8,Platelet,1,13,0,0
+res08,0,CD14+ Mono,1,466,0,0
+res08,1,Naive CD4 T,1,376,0,0
+res08,2,Memory CD4 T,0.968,376,0,0
+res08,3,B,1,332,0,0
+res08,4,CD8 T,1,250,0,0
+res08,5,Naive CD4 T,1,193,0,0
+res08,6,Naive CD4 T,0.715,186,0,0
+res08,7,FCGR3A+ Mono,0.987,156,0,0
+res08,8,NK,1,137,0,0
+res08,9,DC,1,25,0,0
+res08,10,Platelet,1,14,0,0
